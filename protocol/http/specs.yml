@@ -16,15 +16,60 @@ paths:
         - $ref: "#/components/parameters/userRole"
       responses:
         "200":
-          description: User request is successfully registered
+          description: Successfully fetched all users with given role
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/GetAllUsersResponse"
-#  /expatrio/v1/user:
-#    post:
-#    put:
-#    delete:
+  /expatrio/v1/user/customer:
+    post:
+      tags:
+        - users
+      summary: Creates a user with role CUSTOMER
+      operationId: createCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCustomerRequest"
+      responses:
+        "200":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserAttributes"
+    put:
+      tags:
+        - users
+      summary: updates a user with role CUSTOMER
+      operationId: updateCustomer
+      parameters:
+        - $ref: "#/components/parameters/userId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCustomerRequest"
+      responses:
+        "200":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserAttributes"
+    delete:
+      tags:
+        - users
+      summary: Deletes a user with role CUSTOMER
+      operationId: deleteCustomer
+      parameters:
+        - $ref: "#/components/parameters/userId"
+      responses:
+        "200":
+          description: User created successfully
 components:
   parameters:
     userId:
@@ -59,8 +104,31 @@ components:
       required:
         - userId
         - userRole
+        - userName
+        - phoneNumber
       properties:
         userId:
-          type: object
+          type: string
         userRole:
           $ref: "#/components/schemas/UserRoles"
+        userName:
+          type: string
+        phoneNumber:
+          type: string
+    CreateCustomerRequest:
+      type: object
+      required:
+        - userName
+        - phoneNumber
+      properties:
+        userName:
+          type: string
+        phoneNumber:
+          type: string
+    UpdateCustomerRequest:
+      type: object
+      required:
+        - phoneNumber
+      properties:
+        phoneNumber:
+          type: string

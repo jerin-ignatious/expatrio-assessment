@@ -7,8 +7,8 @@ plugins {
 
 dependencies {
     // internal modules
-//    implementation(project(":common"))
-//    implementation(project(":orchestrator"))
+    implementation(project(":common"))
+    implementation(project(":user-management"))
     implementation(project(":protocol:http:server-stub"))
 
     // external dependencies

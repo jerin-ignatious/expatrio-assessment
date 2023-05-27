@@ -7,5 +7,7 @@ enum class UserRoles {
 
 data class UserAttribute(
     val userId: String,
-    val userRole: UserRoles
+    val userRole: UserRoles,
+    val userName: String,
+    val phoneNumber: String
 )
