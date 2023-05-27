@@ -27,7 +27,6 @@ dependencies {
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("io.github.openfeign:feign-okhttp")
     implementation("io.github.openfeign:feign-core")
-    implementation("org.springframework.cloud:spring-cloud-aws-messaging:2.2.6.RELEASE")
     implementation("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -41,7 +40,7 @@ dependencies {
 }
 
 tasks.bootJar {
-    mainClass.set("money.jupiter.plutus.server.PlutusApp")
+    mainClass.set("expatrio.jerin.server.ExpatrioApp")
 }
 
 val bootRun: org.springframework.boot.gradle.tasks.run.BootRun by tasks

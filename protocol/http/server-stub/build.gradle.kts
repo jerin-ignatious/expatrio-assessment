@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+import expatrio.jerin.build.Dependency
 
 plugins {
     kotlin("jvm")
@@ -9,7 +10,7 @@ plugins {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation(money.jupiter.build.Dependency.Library.kotlinxCoroutinesCore)
+    implementation(Dependency.Library.kotlinxCoroutinesCore)
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("javax.validation:validation-api:2.0.1.Final")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
@@ -22,7 +23,7 @@ dependencies {
         exclude(module = "junit")
     }
 
-    implementation(platform(money.jupiter.build.Dependency.BOM.springBoot))
+    implementation(platform(Dependency.BOM.springBoot))
 }
 
 val serverPath = "$rootDir/protocol/http/server-stub"

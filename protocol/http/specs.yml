@@ -6,3 +6,9 @@ info:
     email: jerinignatious1998@gmail.com
   version: v1
 paths:
+  /expatrio/v1/users:
+    get:
+  /expatrio/v1/user:
+    post:
+    put:
+    delete:

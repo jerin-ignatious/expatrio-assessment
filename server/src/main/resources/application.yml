@@ -1,0 +1,56 @@
+expatrio:
+  jerin:
+    build:
+      reflective-data-source:
+        url: jdbc:postgresql://localhost:5432/expatrio
+        username: expatrio
+        password: expatrio
+        schema: public
+        driver-class-name: org.postgresql.Driver
+
+spring:
+  application:
+    name: expatrio-server
+  main:
+    banner-mode: off
+  datasource:
+    name: expatrio
+    url: jdbc:postgresql://localhost:5432/expatrio
+    username: expatrio
+    password: expatrio
+    hikari:
+      minimumIdle: 10
+      maximumPoolSize: 25
+      data-source-properties:
+        #loggerLevel: TRACE
+        logUnclosedConnections: true
+  flyway:
+    connectRetries: 20
+    baselineOnMigrate: true
+    baselineVersion: 0
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+  shutdown: graceful
+  lifecycle:
+    timeout-per-shutdown-phase: 15
+
+logging:
+  level:
+    expatrio.jerin: INFO
+    org:
+      springframework:
+        web.filter.CommonsRequestLoggingFilter: DEBUG
+
+management:
+  metrics:
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus, env
