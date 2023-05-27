@@ -1,0 +1,56 @@
+HELP.md
+.DS_Store
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+local.properties
+
+### Dev environment property override
+/application.yml
+**/config/application*.yml
+
+### Generated code
+protocol/http/client/src
+protocol/http/server-stub/src
+**/.openapi-generator
+nbfc/**/api
+nbfc/**/model
+nbfc/**/client/src
+nbfc/**/build
+
+### LMS docker compose setup
+local-env
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+**.hprof
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### internal-services client reactive generated files
+internal-services/api/client-reactive/src/main/AndroidManifest.xml
+internal-services/api/client-reactive/src/main/java
+internal-services/api/client-reactive/src/test
