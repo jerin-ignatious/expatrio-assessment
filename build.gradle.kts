@@ -1,8 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.Properties
 
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("org.openapi.generator") version "5.4.0" apply false
     id("org.springframework.boot") version "2.6.1" apply false
 
@@ -14,7 +12,6 @@ plugins {
 
 allprojects {
     apply(plugin = "java")
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     group = "expatrio.jerin"
     version = "0.0.1-SNAPSHOT"
@@ -29,15 +26,6 @@ allprojects {
             jvmTarget = "11"
         }
     }
-
-    ktlint {
-        filter {
-            exclude { element ->
-                element.file.path.contains("protocol/http/client") || element.file.path.contains("protocol/http/server-stub")
-            }
-        }
-    }
-
 
     repositories {
         mavenLocal()

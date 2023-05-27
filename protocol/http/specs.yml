@@ -8,7 +8,59 @@ info:
 paths:
   /expatrio/v1/users:
     get:
-  /expatrio/v1/user:
-    post:
-    put:
-    delete:
+      tags:
+        - users
+      summary: returns a list of all users with a given role
+      operationId: getAllUsers
+      parameters:
+        - $ref: "#/components/parameters/userRole"
+      responses:
+        "200":
+          description: User request is successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetAllUsersResponse"
+#  /expatrio/v1/user:
+#    post:
+#    put:
+#    delete:
+components:
+  parameters:
+    userId:
+      in: header
+      name: x-user-id
+      required: true
+      schema:
+        type: string
+    userRole:
+      in: query
+      name: userRole
+      required: true
+      schema:
+        $ref: "#/components/schemas/UserRoles"
+  schemas:
+    UserRoles:
+      type: string
+      enum:
+        - ADMIN
+        - CUSTOMER
+    GetAllUsersResponse:
+      type: object
+      required:
+        - userAttributes
+      properties:
+        userAttributes:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserAttributes"
+    UserAttributes:
+      type: object
+      required:
+        - userId
+        - userRole
+      properties:
+        userId:
+          type: object
+        userRole:
+          $ref: "#/components/schemas/UserRoles"

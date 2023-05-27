@@ -61,7 +61,7 @@ jooqGenerator {
 dependencies {
 
     // internal modules
-//    implementation(project(":common"))
+    implementation(project(":common"))
 
     // external dependencies
     implementation(Dependency.Library.jackson)

@@ -47,7 +47,7 @@ val generateServerStub by tasks.registering(GenerateTask::class) {
         println("Project Dir is $projectDir")
     }
 
-    inputSpec.set("$rootDir/protocol/http/spec.yml")
+    inputSpec.set("$rootDir/protocol/http/specs.yml")
     outputDir.set(serverPath)
 
     // config
