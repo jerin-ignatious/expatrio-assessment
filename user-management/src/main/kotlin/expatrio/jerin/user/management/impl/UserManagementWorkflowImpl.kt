@@ -50,12 +50,32 @@ class UserManagementWorkflowImpl(
         }
     }
 
-    override fun updateCustomer(userId: String, phoneNumber: String): UserAttribute {
-        TODO("Not yet implemented")
+    override fun updateCustomer(
+        userId: String,
+        phoneNumber: String
+    ): UserAttribute {
+        log.info { "[UserManagementWorkflowImpl - updateCustomer] Received request to update phone number" +
+                " for user: $userId" }
+
+        return try {
+            userAttributeDbAccess.updateCustomer(
+                userId = userId,
+                phoneNumber = phoneNumber
+            )
+        } catch (e: Exception) {
+            throw IllegalStateException() // throw custom exception
+        }
     }
 
     override fun deleteCustomer(userId: String) {
-        TODO("Not yet implemented")
+        log.info { "[UserManagementWorkflowImpl - deleteCustomer] Received request to delete user attribute" +
+                " for user: $userId" }
+
+        try {
+            userAttributeDbAccess.deleteCustomer(userId = userId)
+        } catch (e: Exception) {
+            throw IllegalStateException() // throw custom exception
+        }
     }
 
     private fun generateRandomUUID(): String {

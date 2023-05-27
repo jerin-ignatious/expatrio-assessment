@@ -3,7 +3,6 @@ package expatrio.jerin.data.impl
 import expatrio.jerin.common.models.UserAttribute
 import expatrio.jerin.data.UserAttributeDbAccess
 import expatrio.jerin.generated.dao.jooq.Tables
-import expatrio.jerin.generated.dao.jooq.tables.records.UserAttributeRecord
 import expatrio.jerin.mapper.toDomainModel
 import expatrio.jerin.mapper.toRecord
 import org.jooq.DSLContext
@@ -25,5 +24,21 @@ class UserAttributeDbAccessImpl(
             .fetchOne()
 
         return userAttributeRecord?.toDomainModel()!!
+    }
+
+    override fun updateCustomer(userId: String, phoneNumber: String): UserAttribute {
+        val userAttributeRecord = ctx.update(Tables.USER_ATTRIBUTE)
+            .set(Tables.USER_ATTRIBUTE.PHONE_NUMBER,phoneNumber)
+            .where(Tables.USER_ATTRIBUTE.USER_ID.eq(userId))
+            .returning()
+            .fetchOne()
+
+        return userAttributeRecord?.toDomainModel()!!
+    }
+
+    override fun deleteCustomer(userId: String) {
+        ctx.deleteFrom(Tables.USER_ATTRIBUTE)
+            .where(Tables.USER_ATTRIBUTE.USER_ID.eq(userId))
+            .execute()
     }
 }
