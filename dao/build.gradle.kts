@@ -21,7 +21,7 @@ flyway {
     url = buildConfig.reflectiveDataSource.url
     user = buildConfig.reflectiveDataSource.username
     password = buildConfig.reflectiveDataSource.password
-    locations = arrayOf("filesystem:${project.projectDir}/src/main/resources/db/migration")
+    locations = arrayOf("filesystem:${project.projectDir}/src/main/resources/db-migration")
     sqlMigrationPrefix = "V"
     table = "${project.name}_schema_version"
     baselineVersion = "0"
