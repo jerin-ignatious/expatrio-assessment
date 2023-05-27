@@ -1,0 +1,8 @@
+openapi: 3.0.1
+info:
+  title: Expatrio Jerin
+  description: Open API spec for Expatrio
+  contact:
+    email: jerinignatious1998@gmail.com
+  version: v1
+paths:

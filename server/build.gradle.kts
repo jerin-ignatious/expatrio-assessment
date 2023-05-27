@@ -1,3 +1,5 @@
+import expatrio.jerin.build.Dependency
+
 plugins {
     id("org.springframework.boot")
 
@@ -20,7 +22,7 @@ dependencies {
 
     // external dependencies
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-//    implementation(Dependency.Library.kotlinLogging)
+    implementation(Dependency.Library.kotlinLogging)
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     implementation("io.github.openfeign:feign-okhttp")
@@ -29,13 +31,13 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
-    implementation("org.springdoc:springdoc-openapi-webflux-core:1.2.30")
+    implementation("org.springdoc:springdoc-openapi-webflux-core:1.6.15")
     implementation("org.springframework.boot:spring-boot-starter-jooq")
     implementation("org.springframework.boot:spring-boot-starter-security")
 
-    // BOM imports
-//    implementation(platform(Dependency.BOM.springBoot))
-//    implementation(platform(Dependency.BOM.springCloud))
+//     BOM imports
+    implementation(platform(Dependency.BOM.springBoot))
+    implementation(platform(Dependency.BOM.springCloud))
 }
 
 tasks.bootJar {
