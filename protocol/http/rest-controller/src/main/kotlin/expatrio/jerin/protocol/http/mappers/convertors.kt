@@ -1,7 +1,6 @@
 package expatrio.jerin.protocol.http.mappers
 
 import expatrio.jerin.common.models.UserAttribute
-import expatrio.jerin.common.models.UserLoginResponse
 import expatrio.jerin.protocol.http.model.AdminLoginResponse
 import expatrio.jerin.protocol.http.model.GetAllUsersResponse
 import expatrio.jerin.protocol.http.model.UserAttributes
@@ -20,7 +19,7 @@ fun UserAttribute.toUserAttributes(): UserAttributes =
         phoneNumber = this.phoneNumber
     )
 
-fun UserLoginResponse.toApiModel(): AdminLoginResponse =
+fun String.toApiModel(): AdminLoginResponse =
     AdminLoginResponse(
-        token = this.token
+        token = this
     )

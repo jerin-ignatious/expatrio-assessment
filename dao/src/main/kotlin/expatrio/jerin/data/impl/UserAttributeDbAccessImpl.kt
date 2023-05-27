@@ -1,5 +1,6 @@
 package expatrio.jerin.data.impl
 
+import expatrio.jerin.common.exception.EntityNotFoundException
 import expatrio.jerin.common.models.UserAttribute
 import expatrio.jerin.common.models.UserRoles
 import expatrio.jerin.data.UserAttributeDbAccess
@@ -24,8 +25,12 @@ class UserAttributeDbAccessImpl(
         val userAttributeRecord = ctx.selectFrom(Tables.USER_ATTRIBUTE)
             .where(Tables.USER_ATTRIBUTE.PHONE_NUMBER.eq(phoneNumber))
             .fetchOne()
+            ?: throw EntityNotFoundException(
+                entityType = expatrio.jerin.generated.dao.jooq.tables.UserAttribute::class,
+                entityValue = phoneNumber
+            )
 
-        return userAttributeRecord?.toDomainModel()!!
+        return userAttributeRecord.toDomainModel()
     }
 
     override fun createCustomer(userAttribute: UserAttribute): UserAttribute {
@@ -44,8 +49,12 @@ class UserAttributeDbAccessImpl(
             .and(Tables.USER_ATTRIBUTE.USER_ROLE.eq(UserRoles.CUSTOMER.name))
             .returning()
             .fetchOne()
+            ?: throw EntityNotFoundException(
+                entityType = expatrio.jerin.generated.dao.jooq.tables.UserAttribute::class,
+                entityValue = userId
+            )
 
-        return userAttributeRecord?.toDomainModel()!!
+        return userAttributeRecord.toDomainModel()
     }
 
     override fun deleteCustomer(userId: String) {

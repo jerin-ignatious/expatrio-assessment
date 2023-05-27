@@ -1,8 +1,10 @@
 package expatrio.jerin.data.impl
 
+import expatrio.jerin.common.exception.EntityNotFoundException
 import expatrio.jerin.common.models.UserCredentials
 import expatrio.jerin.data.UserCredentialsDbAccess
 import expatrio.jerin.generated.dao.jooq.Tables
+import expatrio.jerin.generated.dao.jooq.tables.UserAttribute
 import expatrio.jerin.mapper.toDomainModel
 import org.jooq.DSLContext
 import org.springframework.stereotype.Component
@@ -17,12 +19,16 @@ class UserCredentialsDbAccessImpl(
             .where(Tables.USER_ATTRIBUTE.USER_ID.eq(userId))
             .fetchOne()
             ?.get(Tables.USER_ATTRIBUTE.ID)
-            ?: throw RuntimeException() // throw custom exception
+            ?: throw EntityNotFoundException(entityType = UserAttribute::class, entityValue = userId)
 
         val userCredentialsRecord = ctx.selectFrom(Tables.USER_CREDENTIALS)
             .where(Tables.USER_CREDENTIALS.USER_ID.eq(userAttributeRowId))
             .fetchOne()
+            ?: throw EntityNotFoundException(
+                entityType = expatrio.jerin.generated.dao.jooq.tables.UserCredentials::class,
+                entityValue = userId
+            )
 
-        return userCredentialsRecord?.toDomainModel()!!
+        return userCredentialsRecord.toDomainModel()
     }
 }
