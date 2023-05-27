@@ -7,7 +7,9 @@ import expatrio.jerin.generated.dao.jooq.Tables
 import expatrio.jerin.mapper.toDomainModel
 import expatrio.jerin.mapper.toRecord
 import org.jooq.DSLContext
+import org.springframework.stereotype.Component
 
+@Component
 class UserAttributeDbAccessImpl(
     private val ctx: DSLContext
 ) : UserAttributeDbAccess {

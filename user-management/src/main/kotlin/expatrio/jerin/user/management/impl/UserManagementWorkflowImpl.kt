@@ -7,7 +7,7 @@ import expatrio.jerin.common.exception.UpdateCustomerFailedException
 import expatrio.jerin.common.models.UserAttribute
 import expatrio.jerin.data.UserAttributeDbAccess
 import expatrio.jerin.protocol.http.model.UserRoles
-import expatrio.jerin.user.management.UserManagementWorflow
+import expatrio.jerin.user.management.UserManagementWorkflow
 import mu.KotlinLogging
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -18,7 +18,7 @@ import java.util.UUID
 @Component
 class UserManagementWorkflowImpl(
     private val userAttributeDbAccess: UserAttributeDbAccess
-) : UserManagementWorflow {
+) : UserManagementWorkflow {
     private val log = KotlinLogging.logger {}
 
     override fun getAllUsers(userRole: UserRoles): List<UserAttribute> {
