@@ -20,6 +20,14 @@ class UserAttributeDbAccessImpl(
         return userAttributeRecords.map { it.toDomainModel() }
     }
 
+    override fun fetchByPhoneNumber(phoneNumber: String): UserAttribute {
+        val userAttributeRecord = ctx.selectFrom(Tables.USER_ATTRIBUTE)
+            .where(Tables.USER_ATTRIBUTE.PHONE_NUMBER.eq(phoneNumber))
+            .fetchOne()
+
+        return userAttributeRecord?.toDomainModel()!!
+    }
+
     override fun createCustomer(userAttribute: UserAttribute): UserAttribute {
         val userAttributeRecord = ctx.insertInto(Tables.USER_ATTRIBUTE)
             .set(userAttribute.toRecord())

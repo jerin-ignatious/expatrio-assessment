@@ -5,6 +5,8 @@ import expatrio.jerin.common.models.UserAttribute
 interface UserAttributeDbAccess {
     fun getAllUsersByRole(userRole: String): List<UserAttribute>
 
+    fun fetchByPhoneNumber(phoneNumber: String): UserAttribute
+
     fun createCustomer(userAttribute: UserAttribute): UserAttribute
 
     fun updateCustomer(
