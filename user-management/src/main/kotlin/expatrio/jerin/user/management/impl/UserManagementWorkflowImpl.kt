@@ -1,5 +1,9 @@
 package expatrio.jerin.user.management.impl
 
+import expatrio.jerin.common.exception.CreateCustomerFailedException
+import expatrio.jerin.common.exception.DeleteCustomerFailedException
+import expatrio.jerin.common.exception.FetchAllUsersFailedException
+import expatrio.jerin.common.exception.UpdateCustomerFailedException
 import expatrio.jerin.common.models.UserAttribute
 import expatrio.jerin.data.UserAttributeDbAccess
 import expatrio.jerin.protocol.http.model.UserRoles
@@ -23,7 +27,9 @@ class UserManagementWorkflowImpl(
         return try {
             userAttributeDbAccess.getAllUsersByRole(userRole = userRole.name)
         } catch (e: Exception) {
-            throw IllegalStateException() // throw custom exception
+            log.info { "[UserManagementWorkflowImpl - getAllUsers] Failed to fetch users with role: $userRole," +
+                    " exception: $e" }
+            throw FetchAllUsersFailedException(userRole.name)
         }
     }
 
@@ -46,7 +52,9 @@ class UserManagementWorkflowImpl(
                 )
             )
         } catch (e: Exception) {
-            throw IllegalStateException() // throw custom exception
+            log.info { "[UserManagementWorkflowImpl - createCustomer] Failed to create customer for user" +
+                    " with phone: $phoneNumber, exception: $e" }
+            throw CreateCustomerFailedException(phoneNumber)
         }
     }
 
@@ -63,7 +71,9 @@ class UserManagementWorkflowImpl(
                 phoneNumber = phoneNumber
             )
         } catch (e: Exception) {
-            throw IllegalStateException() // throw custom exception
+            log.info { "[UserManagementWorkflowImpl - updateCustomer] Failed to update user attribute for userId: $userId," +
+                    " exception: $e" }
+            throw UpdateCustomerFailedException(userId)
         }
     }
 
@@ -74,7 +84,9 @@ class UserManagementWorkflowImpl(
         try {
             userAttributeDbAccess.deleteCustomer(userId = userId)
         } catch (e: Exception) {
-            throw IllegalStateException() // throw custom exception
+            log.info { "[UserManagementWorkflowImpl - deleteCustomer] Failed to delete user with userId: $userId," +
+                    " exception: $e" }
+            throw DeleteCustomerFailedException(userId)
         }
     }
 

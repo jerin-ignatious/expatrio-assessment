@@ -1,6 +1,7 @@
 package expatrio.jerin.data.impl
 
 import expatrio.jerin.common.models.UserAttribute
+import expatrio.jerin.common.models.UserRoles
 import expatrio.jerin.data.UserAttributeDbAccess
 import expatrio.jerin.generated.dao.jooq.Tables
 import expatrio.jerin.mapper.toDomainModel
@@ -30,6 +31,7 @@ class UserAttributeDbAccessImpl(
         val userAttributeRecord = ctx.update(Tables.USER_ATTRIBUTE)
             .set(Tables.USER_ATTRIBUTE.PHONE_NUMBER,phoneNumber)
             .where(Tables.USER_ATTRIBUTE.USER_ID.eq(userId))
+            .and(Tables.USER_ATTRIBUTE.USER_ROLE.eq(UserRoles.CUSTOMER.name))
             .returning()
             .fetchOne()
 
@@ -39,6 +41,7 @@ class UserAttributeDbAccessImpl(
     override fun deleteCustomer(userId: String) {
         ctx.deleteFrom(Tables.USER_ATTRIBUTE)
             .where(Tables.USER_ATTRIBUTE.USER_ID.eq(userId))
+            .and(Tables.USER_ATTRIBUTE.USER_ROLE.eq(UserRoles.CUSTOMER.name))
             .execute()
     }
 }
