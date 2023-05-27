@@ -1,6 +1,7 @@
 package expatrio.jerin.authentication.impl
 
 import expatrio.jerin.authentication.AuthWorkflow
+import expatrio.jerin.common.exception.AuthTokenVerificationFailedException
 import expatrio.jerin.common.exception.EntityNotFoundException
 import expatrio.jerin.common.exception.IncorrectRoleException
 import expatrio.jerin.common.exception.InvalidUserCredentials
@@ -28,7 +29,7 @@ class AuthWorkflowImpl(
         try {
             Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token)
         } catch (e: Exception) {
-            throw RuntimeException() // throw custom exception
+            throw AuthTokenVerificationFailedException()
         }
     }
 

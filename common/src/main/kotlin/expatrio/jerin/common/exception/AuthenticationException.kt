@@ -14,3 +14,6 @@ class InvalidUserCredentials(phoneNumber: String) :
 
 class UserLoginFailedException(phoneNumber: String) :
     AuthenticationException("Login failed for user with phone: $phoneNumber")
+
+class AuthTokenVerificationFailedException() :
+    AuthenticationException("Auth token verification failed.")
