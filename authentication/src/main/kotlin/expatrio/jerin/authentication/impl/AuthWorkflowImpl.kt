@@ -1,6 +1,7 @@
 package expatrio.jerin.authentication.impl
 
 import expatrio.jerin.authentication.AuthWorkflow
+import expatrio.jerin.common.config.ExpatrioProperties
 import expatrio.jerin.common.exception.AuthTokenVerificationFailedException
 import expatrio.jerin.common.exception.EntityNotFoundException
 import expatrio.jerin.common.exception.IncorrectRoleException
@@ -19,15 +20,15 @@ import java.util.Date
 @Component
 class AuthWorkflowImpl(
     private val userAttributeDbAccess: UserAttributeDbAccess,
-    private val userCredentialsDbAccess: UserCredentialsDbAccess
+    private val userCredentialsDbAccess: UserCredentialsDbAccess,
+    propeties: ExpatrioProperties
 ) : AuthWorkflow {
     private val log = KotlinLogging.logger {}
-    private val secretKey = "your-secret-key"
-    private val expirationTimeMillis = 1800000
+    private val authProperties = propeties.authentication
 
     override fun verifyJWT(token: String) {
         try {
-            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token)
+            Jwts.parserBuilder().setSigningKey(authProperties.secretKey).build().parseClaimsJws(token)
         } catch (e: Exception) {
             throw AuthTokenVerificationFailedException()
         }
@@ -74,12 +75,12 @@ class AuthWorkflowImpl(
     }
 
     private fun generateJwtToken(userId: String): String {
-        val expirationDate = Date(System.currentTimeMillis() + expirationTimeMillis)
+        val expirationDate = Date(System.currentTimeMillis() + authProperties.expirationTimeMillis)
 
         return Jwts.builder()
             .setSubject(userId)
             .setExpiration(expirationDate)
-            .signWith(SignatureAlgorithm.HS256, secretKey)
+            .signWith(SignatureAlgorithm.HS256, authProperties.secretKey)
             .compact()
     }
 
